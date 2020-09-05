@@ -57,7 +57,7 @@ func GetGoogleOauthURL(c *ClientOption) string {
 	config := &oauth2.Config{
 		ClientID:     c.getID(),
 		ClientSecret: c.getSecret(),
-		RedirectURL:  "https://ginoauth2-example.herokuapp.com/callback",
+		RedirectURL:  "https://ginoauth-example.herokuapp.com/callback",
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.email",
 			"https://www.googleapis.com/auth/userinfo.profile",
