@@ -1,13 +1,18 @@
 package backend
 
 import (
+	"errors"
+	"log"
 	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/joho/godotenv/autoload"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/google"
 )
+
+var StateError = errors.New("state error.")
 
 type ClientOption struct {
 	clientID     string
@@ -52,7 +57,7 @@ func GetGoogleOauthURL(c *ClientOption) string {
 	config := &oauth2.Config{
 		ClientID:     c.getID(),
 		ClientSecret: c.getSecret(),
-		RedirectURL:  "http://localhost:8080/callback",
+		RedirectURL:  "https://ginoauth2-example.herokuapp.com/callback",
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.email",
 			"https://www.googleapis.com/auth/userinfo.profile",
@@ -65,5 +70,19 @@ func GetGoogleOauthURL(c *ClientOption) string {
 
 func GoogleOauthLogin(ctx *gin.Context) {
 	redirectURL := GetGoogleOauthURL(nil)
+	log.Println("redirectURL = ", redirectURL)
 	ctx.Redirect(http.StatusSeeOther, redirectURL)
+}
+
+func GoogleCallBack(ctx *gin.Context) {
+	s := ctx.Query("state")
+	if s != "state" {
+		ctx.AbortWithError(http.StatusUnauthorized, StateError)
+		return
+	}
+
+	code := ctx.Query("code")
+	ctx.JSON(200, gin.H{
+		"code": code,
+	})
 }
