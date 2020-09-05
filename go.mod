@@ -1,4 +1,4 @@
-module example
+module github.com/davidleitw/gin-oauth2-example
 
 go 1.13
 

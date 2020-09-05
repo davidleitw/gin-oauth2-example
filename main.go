@@ -1,8 +1,9 @@
 package main
 
 import (
-	"example/backend"
 	"fmt"
+
+	"github.com/davidleitw/gin-oauth2-example/backend"
 
 	"github.com/gin-gonic/gin"
 )
