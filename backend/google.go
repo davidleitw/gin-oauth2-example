@@ -65,7 +65,7 @@ func GetGoogleOauthURL(c *ClientOption) string {
 		Endpoint: google.Endpoint,
 	}
 
-	return config.AuthCodeURL("state")
+	return config.AuthCodeURL("TheWorld")
 }
 
 func GoogleOauthLogin(ctx *gin.Context) {
@@ -75,9 +75,9 @@ func GoogleOauthLogin(ctx *gin.Context) {
 }
 
 func GoogleCallBack(ctx *gin.Context) {
-	s := ctx.Query("state")
+	s := ctx.Query("TheWorld")
 	if s != "state" {
-		ctx.AbortWithError(http.StatusUnauthorized, StateError)
+		_ = ctx.AbortWithError(http.StatusUnauthorized, StateError)
 		return
 	}
 
