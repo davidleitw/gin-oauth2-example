@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/davidleitw/gin-oauth2-example/backend"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,4 +21,5 @@ func main() {
 	server.GET("/test", backend.GoogleOauthLogin)
 
 	server.Run()
+
 }
