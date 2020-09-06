@@ -57,7 +57,7 @@ func GetGoogleOauthURL(c *ClientOption) string {
 	config := &oauth2.Config{
 		ClientID:     c.getID(),
 		ClientSecret: c.getSecret(),
-		RedirectURL:  "/callback",
+		RedirectURL:  "https://ginoauth-example.herokuapp.com/callback",
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.email",
 			"https://www.googleapis.com/auth/userinfo.profile",
@@ -76,7 +76,7 @@ func GoogleOauthLogin(ctx *gin.Context) {
 
 func GoogleCallBack(ctx *gin.Context) {
 	log.Println("Call back area. ")
-	s := ctx.Query("TheWorld")
+	s := ctx.Query("state")
 	if s != "TheWorld" {
 		_ = ctx.AbortWithError(http.StatusUnauthorized, StateError)
 		return
