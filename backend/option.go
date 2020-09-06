@@ -12,11 +12,31 @@ type ClientOption struct {
 	clientSecret string
 }
 
-func CreateClientOptions() *ClientOption {
-	return &ClientOption{
-		clientID:     os.Getenv("GoogleID"),
-		clientSecret: os.Getenv("GoogleSecret"),
+func createClientOptions(company string) *ClientOption {
+	var ID, Secret string
+	switch company {
+	case "google":
+		ID = os.Getenv("GoogleID")
+		Secret = os.Getenv("GoogleSecret")
+	case "facebook":
+		ID = os.Getenv("FacebookID")
+		Secret = os.Getenv("FacebookSecret")
+	case "github":
+		ID = os.Getenv("GithubID")
+		Secret = os.Getenv("GithubSecret")
+	default:
+		ID = ""
+		Secret = ""
 	}
+
+	return &ClientOption{
+		clientID:     ID,
+		clientSecret: Secret,
+	}
+}
+
+func CreateClientOptions(company string) *ClientOption {
+	return createClientOptions(company)
 }
 
 func CreateClientOptionsWithString(ID, Secret string) *ClientOption {
