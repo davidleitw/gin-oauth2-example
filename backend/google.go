@@ -77,7 +77,7 @@ func GoogleOauthLogin(ctx *gin.Context) {
 func GoogleCallBack(ctx *gin.Context) {
 	log.Println("Call back area. ")
 	s := ctx.Query("TheWorld")
-	if s != "state" {
+	if s != "TheWorld" {
 		_ = ctx.AbortWithError(http.StatusUnauthorized, StateError)
 		return
 	}
