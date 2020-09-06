@@ -27,14 +27,12 @@ type User struct {
 	Hd            string `json:"hd"`
 }
 
-func GetGoogleOauthURL(c *ClientOption) string {
-	if c == nil {
-		c = CreateClientOptions()
-	}
+func GetGoogleOauthURL() string {
+	options := CreateClientOptions("google")
 
 	google_config = &oauth2.Config{
-		ClientID:     c.getID(),
-		ClientSecret: c.getSecret(),
+		ClientID:     options.getID(),
+		ClientSecret: options.getSecret(),
 		RedirectURL:  "https://ginoauth-example.herokuapp.com/callback",
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.email",
@@ -47,7 +45,7 @@ func GetGoogleOauthURL(c *ClientOption) string {
 }
 
 func GoogleOauthLogin(ctx *gin.Context) {
-	redirectURL := GetGoogleOauthURL(nil)
+	redirectURL := GetGoogleOauthURL()
 	ctx.Redirect(http.StatusSeeOther, redirectURL)
 }
 
@@ -58,7 +56,7 @@ func GoogleCallBack(ctx *gin.Context) {
 		return
 	}
 
-	// use code to get access token
+	// 藉由Authorization Code去跟google(resource)申請Access Token
 	code := ctx.Query("code")
 	token, err := google_config.Exchange(ctx, code)
 	if err != nil {
@@ -66,6 +64,7 @@ func GoogleCallBack(ctx *gin.Context) {
 		return
 	}
 
+	// 藉由獲得的Access Token去跟google申請資源
 	client := google_config.Client(context.TODO(), token)
 	userInfo, err := client.Get("https://www.googleapis.com/oauth2/v3/userinfo")
 	if err != nil {
@@ -86,6 +85,7 @@ func GoogleCallBack(ctx *gin.Context) {
 		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
+
 	ctx.JSON(200, gin.H{
 		"Info": user,
 	})
