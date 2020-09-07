@@ -24,6 +24,9 @@ func createClientOptions(company string) *ClientOption {
 	case "github":
 		ID = os.Getenv("GithubID")
 		Secret = os.Getenv("GithubSecret")
+	case "twitter":
+		ID = os.Getenv("TwitterID")
+		Secret = os.Getenv("TwitterSecret")
 	default:
 		ID = ""
 		Secret = ""

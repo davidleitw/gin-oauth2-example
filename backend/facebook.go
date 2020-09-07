@@ -1,8 +1,8 @@
 package backend
 
 import (
+	"context"
 	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,6 +11,14 @@ import (
 )
 
 var facebook_config *oauth2.Config
+
+type facebookUser struct {
+	ID         string `json:"id"`
+	Name       string `json:"name"`
+	FirstName  string `json:"first_name"`
+	LastName   string `json:"last_name"`
+	ProfilePic string `json:"profile_pic"`
+}
 
 func getFacebookOauthURL() string {
 	options := CreateClientOptions("facebook")
@@ -40,7 +48,7 @@ func FacebookCallBack(ctx *gin.Context) {
 	}
 
 	state := ctx.Query("state")
-	if state != "Facebook" {
+	if state != "FaceBook" {
 		_ = ctx.AbortWithError(http.StatusUnauthorized, StateError)
 		return
 	}
@@ -52,5 +60,7 @@ func FacebookCallBack(ctx *gin.Context) {
 		return
 	}
 
-	fmt.Println("token = ", token)
+	client := facebook_config.Client(context.TODO(), token)
+	// userEmail, err := client.Get()
+
 }

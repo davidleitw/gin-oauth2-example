@@ -14,7 +14,7 @@ import (
 
 var google_config *oauth2.Config
 
-type User struct {
+type googleUser struct {
 	Sub           string `json:"sub"`
 	Name          string `json:"name"`
 	GivenName     string `json:"given_name"`
@@ -79,7 +79,7 @@ func GoogleCallBack(ctx *gin.Context) {
 		return
 	}
 
-	var user User
+	var user googleUser
 	err = json.Unmarshal(info, &user)
 	if err != nil {
 		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
