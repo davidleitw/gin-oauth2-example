@@ -30,6 +30,7 @@ func getFacebookOauthURL() string {
 		RedirectURL:  "https://ginoauth-example.herokuapp.com/callback/facebook",
 		Scopes: []string{
 			"email",
+			"public_profile",
 		},
 		Endpoint: facebook.Endpoint,
 	}
@@ -62,6 +63,7 @@ func FacebookCallBack(ctx *gin.Context) {
 	}
 
 	client := facebook_config.Client(context.TODO(), token)
+	fmt.Println("client = client")
 	userEmail, err := client.Get("https://graph.facebook.com/v8.0/me/messages")
 	if err != nil {
 		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
