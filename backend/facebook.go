@@ -3,6 +3,7 @@ package backend
 import (
 	"context"
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -61,6 +62,11 @@ func FacebookCallBack(ctx *gin.Context) {
 	}
 
 	client := facebook_config.Client(context.TODO(), token)
-	// userEmail, err := client.Get()
+	userEmail, err := client.Get("https://graph.facebook.com/oauth")
+	if err != nil {
+		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
 
+	fmt.Println("user info = ", userEmail)
 }
