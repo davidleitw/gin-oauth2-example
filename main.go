@@ -7,11 +7,11 @@ import (
 
 func main() {
 	server := gin.Default()
-	server.GET("/callback", backend.GoogleCallBack)
-	server.GET("/Hello", func(ctx *gin.Context) {
-		ctx.String(200, "Hello world")
-	})
-	server.GET("/test", backend.GoogleOauthLogin)
+	// server.GET("/callback", backend.GoogleCallBack)
+	// server.GET("/Hello", func(ctx *gin.Context) {
+	// 	ctx.String(200, "Hello world")
+	// })
+	// server.GET("/test", backend.GoogleOauthLogin)
 
 	server.Group("auth")
 	{
