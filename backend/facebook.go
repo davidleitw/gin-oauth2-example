@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -18,7 +17,7 @@ var facebook_config *oauth2.Config
 type facebookUser struct {
 	ID    string `json:"id"`
 	Name  string `json:"name"`
-	Email string `json:"email`
+	Email string `json:"email"`
 }
 
 func getFacebookOauthURL() string {
@@ -61,10 +60,8 @@ func FacebookCallBack(ctx *gin.Context) {
 		_ = ctx.AbortWithError(http.StatusUnauthorized, err)
 		return
 	}
-	fmt.Println("token = ", token)
 
 	client := facebook_config.Client(context.TODO(), token)
-	fmt.Println("client = ", client)
 
 	userInfo, err := client.Get("https://graph.facebook.com/v8.0/me?fields=id,name,email")
 	if err != nil {
