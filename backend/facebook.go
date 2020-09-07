@@ -66,7 +66,7 @@ func FacebookCallBack(ctx *gin.Context) {
 	client := facebook_config.Client(context.TODO(), token)
 	fmt.Println("client = ", client)
 
-	userEmail, err := client.Get("https://graph.facebook.com/v8.0/me/email")
+	userEmail, err := client.Get("https://graph.facebook.com/v8.0/me?fields=email")
 	if err != nil {
 		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
 		return
