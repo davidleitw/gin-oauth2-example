@@ -2,8 +2,10 @@ package backend
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,11 +16,9 @@ import (
 var facebook_config *oauth2.Config
 
 type facebookUser struct {
-	ID         string `json:"id"`
-	Name       string `json:"name"`
-	FirstName  string `json:"first_name"`
-	LastName   string `json:"last_name"`
-	ProfilePic string `json:"profile_pic"`
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email`
 }
 
 func getFacebookOauthURL() string {
@@ -66,11 +66,26 @@ func FacebookCallBack(ctx *gin.Context) {
 	client := facebook_config.Client(context.TODO(), token)
 	fmt.Println("client = ", client)
 
-	userEmail, err := client.Get("https://graph.facebook.com/v8.0/me?fields=email")
+	userInfo, err := client.Get("https://graph.facebook.com/v8.0/me?fields=id,name,email")
 	if err != nil {
 		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
 		return
 	}
 
-	fmt.Println("user info = ", userEmail)
+	info, err := ioutil.ReadAll(userInfo.Body)
+	if err != nil {
+		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	var user facebookUser
+	err = json.Unmarshal(info, &user)
+	if err != nil {
+		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	ctx.JSON(200, gin.H{
+		"Info": user,
+	})
 }
