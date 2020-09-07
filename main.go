@@ -13,15 +13,15 @@ func main() {
 	// })
 	// server.GET("/test", backend.GoogleOauthLogin)
 
-	server.Group("auth")
+	oauth := server.Group("oauth")
 	{
-		server.GET("/google", backend.GoogleOauthLogin)
-		server.GET("/facebook", backend.FacebookOauthLogin)
+		oauth.GET("/google", backend.GoogleOauthLogin)
+		oauth.GET("/facebook", backend.FacebookOauthLogin)
 	}
-	server.Group("callback")
+	callback := server.Group("callback")
 	{
-		server.GET("/google", backend.GoogleCallBack)
-		server.GET("/facebook", backend.FacebookCallBack)
+		callback.GET("/google", backend.GoogleCallBack)
+		callback.GET("/facebook", backend.FacebookCallBack)
 	}
 
 	_ = server.Run()
