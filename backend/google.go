@@ -27,7 +27,7 @@ type User struct {
 	Hd            string `json:"hd"`
 }
 
-func GetGoogleOauthURL() string {
+func getGoogleOauthURL() string {
 	options := CreateClientOptions("google")
 
 	google_config = &oauth2.Config{
@@ -45,7 +45,7 @@ func GetGoogleOauthURL() string {
 }
 
 func GoogleOauthLogin(ctx *gin.Context) {
-	redirectURL := GetGoogleOauthURL()
+	redirectURL := getGoogleOauthURL()
 	ctx.Redirect(http.StatusSeeOther, redirectURL)
 }
 
