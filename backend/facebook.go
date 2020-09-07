@@ -61,6 +61,7 @@ func FacebookCallBack(ctx *gin.Context) {
 		_ = ctx.AbortWithError(http.StatusUnauthorized, err)
 		return
 	}
+	fmt.Println("token = ", token)
 
 	client := facebook_config.Client(context.TODO(), token)
 	fmt.Println("client = ", client)
