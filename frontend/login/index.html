@@ -34,27 +34,36 @@
             text-align: center;
         }
 
+        .login-list {
+            display: flex;
+            flex-direction: column;
+        }
+
         button {
             position: relative;
-            width: 60px;
+            width: 170px;
             height: 60px;
-            border-radius: 50%;
+            border-radius: 8px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             border: none;
             cursor: pointer;
-            margin-top: 80px;
+            margin-top: 20px;
+            padding: 5px;
             outline: none;
+            font-size: 20px;
         }
 
         button::before {
             position: absolute;
             display: block;
             content: '';
-            width: 60px;
+            top: -5px;
+            left: -5px;
+            width: 170px;
             height: 60px;
-            border-radius: 50%;
+            border-radius: 8px;
             border: 4px solid rgba(255, 255, 255, 0);
         }
 
@@ -64,7 +73,7 @@
 
 
         button img {
-            width: 60px;
+            height: 100%;
         }
 
         @keyframes wave {
@@ -75,7 +84,7 @@
 
             100% {
                 border: 4px solid rgba(255, 255, 255, 0);
-                transform: scale(1.5);
+                transform: scale(1.2);
             }
         }
     </style>
@@ -83,12 +92,25 @@
 
 <body>
     <div class="box">
-        <h1>Google Login</h1>
-        <button><img src="/img/google.svg" alt=""></button>
+        <h1>第三方登入</h1>
+        <div class="login-list">
+            <button id="google_login">
+                <img src="/img/google.svg" alt="">
+                <span>Google Login</span>
+            </button>
+            <button id="facebook_login">
+                <img src="/img/facebook.svg" alt="">
+                <span>Facebook Login</span>
+            </button>
+        </div>
     </div>
     <script>
-        let login=document.querySelector('button')
-        login.addEventListener('click',function(){
+        let googleLogin = document.querySelector('#google_login')
+        let facebookLogin = document.querySelector('#facebook_login')
+        googleLogin.addEventListener('click', function () {
+            window.open("/oauth/google")
+        });
+        facebookLogin.addEventListener('click', function () {
             window.open("/oauth/facebook")
         });
 

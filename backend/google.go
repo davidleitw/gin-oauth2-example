@@ -3,6 +3,7 @@ package backend
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 
@@ -29,7 +30,7 @@ type googleUser struct {
 
 func getGoogleOauthURL() string {
 	options := CreateClientOptions("google")
-
+	
 	google_config = &oauth2.Config{
 		ClientID:     options.getID(),
 		ClientSecret: options.getSecret(),
