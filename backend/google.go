@@ -68,6 +68,7 @@ func GoogleOauthLogin(ctx *gin.Context) {
 func GoogleCallBack(ctx *gin.Context) {
 	session := sessions.Default(ctx)
 	state := session.Get("state")
+	log.Println("state = ", state)
 	if state != ctx.Query("state") {
 		_ = ctx.AbortWithError(http.StatusUnauthorized, StateError)
 		return
