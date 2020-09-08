@@ -30,12 +30,12 @@ type googleUser struct {
 }
 
 func getGoogleOauthURL() (*oauth2.Config, string) {
-	options := CreateClientOptions("google")
+	options := CreateClientOptions("google", "https://ginoauth-example.herokuapp.com/callback/google")
 
 	google_config = &oauth2.Config{
 		ClientID:     options.getID(),
 		ClientSecret: options.getSecret(),
-		RedirectURL:  "https://ginoauth-example.herokuapp.com/callback/google",
+		RedirectURL:  options.getRedirectURL(),
 		Scopes: []string{
 			"https://www.googleapis.com/auth/userinfo.email",
 			"https://www.googleapis.com/auth/userinfo.profile",
@@ -101,11 +101,23 @@ func GoogleCallBack(ctx *gin.Context) {
 	}
 
 	// redirect to islogin page, and add email, name into url's query string.
-	redirectURL, _ := url.Parse(IsLoginURL)
-	query, _ := url.ParseQuery(redirectURL.RawQuery)
+	redirectURL, err := url.Parse(IsLoginURL)
+	if err != nil {
+		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	query, err := url.ParseQuery(redirectURL.RawQuery)
+	if err != nil {
+		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
 	query.Add("email", user.Email)
 	query.Add("name", user.Name)
 	query.Add("source", "google")
 	redirectURL.RawQuery = query.Encode()
+
+	// 跳轉登入成功畫面(顯示登入資訊)
 	ctx.Redirect(http.StatusSeeOther, redirectURL.String())
 }

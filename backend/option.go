@@ -9,14 +9,15 @@ import (
 
 var StateError = errors.New("state error.")
 
-const IsLoginURL = "/islogin"//"https://ginoauth-example.herokuapp.com/Islogin"
+const IsLoginURL = "/islogin" // "https://ginoauth-example.herokuapp.com/Islogin"
 
 type ClientOption struct {
 	clientID     string
 	clientSecret string
+	redirectURL  string
 }
 
-func createClientOptions(company string) *ClientOption {
+func createClientOptions(company, redirectURL string) *ClientOption {
 	var ID, Secret string
 	switch company {
 	case "google":
@@ -39,18 +40,24 @@ func createClientOptions(company string) *ClientOption {
 	return &ClientOption{
 		clientID:     ID,
 		clientSecret: Secret,
+		redirectURL:  redirectURL,
 	}
 }
 
-func CreateClientOptions(company string) *ClientOption {
-	return createClientOptions(company)
+func CreateClientOptions(company string, redirectURL string) *ClientOption {
+	return createClientOptions(company, redirectURL)
 }
 
-func CreateClientOptionsWithString(ID, Secret string) *ClientOption {
+func CreateClientOptionsWithString(ID, Secret, RedirectURL string) *ClientOption {
 	c := new(ClientOption)
 	c.setID(ID)
 	c.setSecret(Secret)
+	c.setRedirectURL(RedirectURL)
 	return c
+}
+
+func (c *ClientOption) setRedirectURL(URL string) {
+	c.redirectURL = URL
 }
 
 func (c *ClientOption) setID(ID string) {
@@ -67,6 +74,10 @@ func (c *ClientOption) getID() string {
 
 func (c *ClientOption) getSecret() string {
 	return c.clientSecret
+}
+
+func (c *ClientOption) getRedirectURL() string {
+	return c.redirectURL
 }
 
 func GenerateState() string {
