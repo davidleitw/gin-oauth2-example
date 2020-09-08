@@ -8,8 +8,9 @@ import (
 func main() {
 	server := gin.Default()
 
-	server.Static("/img","./frontend/img")
-	server.Static("login","./frontend/login")
+	server.Static("/img", "./frontend/img")
+	server.Static("login", "./frontend/login")
+	server.Static("islogin", "./frontend/Islogin")
 
 	// oauth2 group, if you want to login, visit these routes.
 	oauth := server.Group("oauth")
