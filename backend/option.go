@@ -3,9 +3,13 @@ package backend
 import (
 	"errors"
 	"os"
+
+	"github.com/rs/xid"
 )
 
 var StateError = errors.New("state error.")
+
+const IsLoginURL = "https://ginoauth-example.herokuapp.com/Islogin"
 
 type ClientOption struct {
 	clientID     string
@@ -63,4 +67,8 @@ func (c *ClientOption) getID() string {
 
 func (c *ClientOption) getSecret() string {
 	return c.clientSecret
+}
+
+func GenerateState() string {
+	return xid.New().String()
 }
