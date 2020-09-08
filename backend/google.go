@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 
@@ -92,6 +93,6 @@ func GoogleCallBack(ctx *gin.Context) {
 	query.Add("email", user.Email)
 	query.Add("name", user.Name)
 	redirectURL.RawQuery = query.Encode()
-
+	log.Printf("name = %s, email = %s\n", user.Name, user.Email)
 	ctx.Redirect(http.StatusSeeOther, redirectURL.String())
 }
