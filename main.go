@@ -2,11 +2,15 @@ package main
 
 import (
 	"github.com/davidleitw/gin-oauth2-example/backend"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	server := gin.Default()
+	store := cookie.NewStore([]byte("secret"))
+	server.Use(sessions.Sessions("mysession", store))
 
 	server.Static("/img", "./frontend/img")
 	server.Static("login", "./frontend/login")
