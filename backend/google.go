@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
@@ -29,7 +30,7 @@ type googleUser struct {
 
 func getGoogleOauthURL() string {
 	options := CreateClientOptions("google")
-	
+
 	google_config = &oauth2.Config{
 		ClientID:     options.getID(),
 		ClientSecret: options.getSecret(),
@@ -86,7 +87,11 @@ func GoogleCallBack(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(200, gin.H{
-		"Info": user,
-	})
+	redirectURL, _ := url.Parse(IsLoginURL)
+	query, _ := url.ParseQuery(redirectURL.RawQuery)
+	query.Add("email", user.Email)
+	query.Add("name", user.Name)
+	redirectURL.RawQuery = query.Encode()
+
+	ctx.Redirect(http.StatusSeeOther, redirectURL.String())
 }
