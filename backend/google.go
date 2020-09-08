@@ -46,13 +46,11 @@ func getGoogleOauthURL() (*oauth2.Config, string) {
 
 	state := GenerateState()
 	return google_config, state
-	//return google_config.AuthCodeURL("TheWorld")
 }
 
 func GoogleOauthLogin(ctx *gin.Context) {
 	config, state := getGoogleOauthURL()
 	redirectURL := config.AuthCodeURL(state)
-	// redirectURL := getGoogleOauthURL()
 
 	session := sessions.Default(ctx)
 	session.Set("state", state)
@@ -68,16 +66,10 @@ func GoogleOauthLogin(ctx *gin.Context) {
 func GoogleCallBack(ctx *gin.Context) {
 	session := sessions.Default(ctx)
 	state := session.Get("state")
-	log.Println("state = ", state)
 	if state != ctx.Query("state") {
 		_ = ctx.AbortWithError(http.StatusUnauthorized, StateError)
 		return
 	}
-	// state := ctx.Query("state")
-	// if state != "TheWorld" {
-	// 	_ = ctx.AbortWithError(http.StatusUnauthorized, StateError)
-	// 	return
-	// }
 
 	// 藉由Authorization Code去跟google(resource)申請Access Token
 	code := ctx.Query("code")

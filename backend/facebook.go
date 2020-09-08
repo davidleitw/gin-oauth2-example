@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
 	"golang.org/x/oauth2"
@@ -23,7 +24,7 @@ type facebookUser struct {
 	Email string `json:"email"`
 }
 
-func getFacebookOauthURL() string {
+func getFacebookOauthURL() (*oauth2.Config, string) {
 	options := CreateClientOptions("facebook")
 
 	facebook_config = &oauth2.Config{
@@ -36,12 +37,22 @@ func getFacebookOauthURL() string {
 		},
 		Endpoint: facebook.Endpoint,
 	}
-
-	return facebook_config.AuthCodeURL("FaceBook")
+	state := GenerateState()
+	return facebook_config, state
 }
 
 func FacebookOauthLogin(ctx *gin.Context) {
-	redirectURL := getFacebookOauthURL()
+	config, state := getFacebookOauthURL()
+	redirectURL := config.AuthCodeURL(state)
+
+	session := sessions.Default(ctx)
+	session.Set("state", state)
+	err := session.Save()
+	if err != nil {
+		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
 	ctx.Redirect(http.StatusSeeOther, redirectURL)
 }
 
@@ -51,8 +62,9 @@ func FacebookCallBack(ctx *gin.Context) {
 		return
 	}
 
-	state := ctx.Query("state")
-	if state != "FaceBook" {
+	session := sessions.Default(ctx)
+	state := session.Get("state")
+	if state != ctx.Query("state") {
 		_ = ctx.AbortWithError(http.StatusUnauthorized, StateError)
 		return
 	}
