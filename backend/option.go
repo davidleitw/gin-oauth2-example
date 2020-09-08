@@ -9,7 +9,7 @@ import (
 
 var StateError = errors.New("state error.")
 
-const IsLoginURL = "https://ginoauth-example.herokuapp.com/Islogin"
+const IsLoginURL = "/islogin"//"https://ginoauth-example.herokuapp.com/Islogin"
 
 type ClientOption struct {
 	clientID     string

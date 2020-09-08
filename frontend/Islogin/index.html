@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(0, 201, 140);
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #info {
+            box-sizing: border-box;
+            min-width: 200px;
+            padding: 20px 10px;
+            border-radius: 8px;
+            background-color: #fcbc31;
+        }
+
+        #info>h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .user-info {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="info" class="box">
+        <h2>帳戶資訊</h2>
+        <div id="name" class="user-info">
+            <h3>test</h3>
+        </div>
+        <div id="email" class="user-info">
+            <h3>xxxx@xxxx.com</h3>
+        </div>
+    </div>
+
+    <script>
+
+        (function () {
+            //測試用 let url=new URL("https://ginoauth-example.herokuapp.com/Islogin?email=fizzyelt8786%40gmail.com&name=%E7%B4%A2%E6%9F%8F%E9%8A%93#")
+            let urlParams = new URLSearchParams(window.location.search)
+            if (urlParams.get('name')) {
+                let name = document.querySelector('#name h3')
+                let email = document.querySelector('#email h3')
+                name.textContent = urlParams.get('name')
+                email.textContent = urlParams.get('email')
+            }
+        })();
+
+    </script>
+</body>
+
+</html>
