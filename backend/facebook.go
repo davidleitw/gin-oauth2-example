@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 
@@ -102,7 +101,7 @@ func FacebookCallBack(ctx *gin.Context) {
 	query, _ := url.ParseQuery(redirectURL.RawQuery)
 	query.Add("email", user.Email)
 	query.Add("name", user.Name)
+	query.Add("source", "facebook")
 	redirectURL.RawQuery = query.Encode()
-	log.Printf("name = %s, email = %s\n", user.Name, user.Email)
 	ctx.Redirect(http.StatusSeeOther, redirectURL.String())
 }
