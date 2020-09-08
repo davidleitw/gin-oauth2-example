@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
 	"golang.org/x/oauth2"
@@ -29,7 +30,7 @@ type googleUser struct {
 	Hd            string `json:"hd"`
 }
 
-func getGoogleOauthURL() string {
+func getGoogleOauthURL() (*oauth2.Config, string) {
 	options := CreateClientOptions("google")
 
 	google_config = &oauth2.Config{
@@ -43,20 +44,39 @@ func getGoogleOauthURL() string {
 		Endpoint: google.Endpoint,
 	}
 
-	return google_config.AuthCodeURL("TheWorld")
+	state := GenerateState()
+	return google_config, state
+	//return google_config.AuthCodeURL("TheWorld")
 }
 
 func GoogleOauthLogin(ctx *gin.Context) {
-	redirectURL := getGoogleOauthURL()
+	config, state := getGoogleOauthURL()
+	redirectURL := config.AuthCodeURL(state)
+	// redirectURL := getGoogleOauthURL()
+
+	session := sessions.Default(ctx)
+	session.Set("state", state)
+	err := session.Save()
+	if err != nil {
+		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
 	ctx.Redirect(http.StatusSeeOther, redirectURL)
 }
 
 func GoogleCallBack(ctx *gin.Context) {
-	state := ctx.Query("state")
-	if state != "TheWorld" {
+	session := sessions.Default(ctx)
+	state := session.Get("state")
+	if state != ctx.Query("state") {
 		_ = ctx.AbortWithError(http.StatusUnauthorized, StateError)
 		return
 	}
+	// state := ctx.Query("state")
+	// if state != "TheWorld" {
+	// 	_ = ctx.AbortWithError(http.StatusUnauthorized, StateError)
+	// 	return
+	// }
 
 	// 藉由Authorization Code去跟google(resource)申請Access Token
 	code := ctx.Query("code")
@@ -88,6 +108,7 @@ func GoogleCallBack(ctx *gin.Context) {
 		return
 	}
 
+	// redirect to islogin page, and add email, name into url's query string.
 	redirectURL, _ := url.Parse(IsLoginURL)
 	query, _ := url.ParseQuery(redirectURL.RawQuery)
 	query.Add("email", user.Email)
