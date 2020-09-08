@@ -21,6 +21,7 @@ func main() {
 	{
 		oauth.GET("/google", backend.GoogleOauthLogin)
 		oauth.GET("/facebook", backend.FacebookOauthLogin)
+		oauth.GET("/github", backend.GithubOauthLogin)
 	}
 
 	// callback group
@@ -28,6 +29,7 @@ func main() {
 	{
 		callback.GET("/google", backend.GoogleCallBack)
 		callback.GET("/facebook", backend.FacebookCallBack)
+		callback.GET("/github", backend.GithubCallBack)
 	}
 
 	_ = server.Run()
