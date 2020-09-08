@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"errors"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"net/url"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
@@ -83,7 +85,11 @@ func FacebookCallBack(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(200, gin.H{
-		"Info": user,
-	})
+	redirectURL, _ := url.Parse(IsLoginURL)
+	query, _ := url.ParseQuery(redirectURL.RawQuery)
+	query.Add("email", user.Email)
+	query.Add("name", user.Name)
+	redirectURL.RawQuery = query.Encode()
+	log.Printf("name = %s, email = %s\n", user.Name, user.Email)
+	ctx.Redirect(http.StatusSeeOther, redirectURL.String())
 }
