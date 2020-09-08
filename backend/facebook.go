@@ -85,6 +85,7 @@ func FacebookCallBack(ctx *gin.Context) {
 		return
 	}
 
+	// redirect to islogin page, and add email, name into url's query string.
 	redirectURL, _ := url.Parse(IsLoginURL)
 	query, _ := url.ParseQuery(redirectURL.RawQuery)
 	query.Add("email", user.Email)
