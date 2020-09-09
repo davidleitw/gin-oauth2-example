@@ -89,7 +89,7 @@ func GenerateState() string {
 
 func __debug__printJSON(js []byte) {
 	var prettyJSON bytes.Buffer
-	err := json.Indent(&prettyJSON, js, "", "t")
+	err := json.Indent(&prettyJSON, js, "", "\n")
 
 	result := string(prettyJSON.Bytes())
 

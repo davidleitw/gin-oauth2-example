@@ -17,11 +17,38 @@ import (
 var github_config *oauth2.Config
 
 type githubUser struct {
-	Login   string `json:"login"`
-	Name    string `json:"name"`
-	Email   string `json:"email"`
-	Company string `json:"company"`
-	URL     string `json:"url"`
+	Login             string `json:"login"`
+	ID                int    `json:"id"`
+	NodeID            string `json:"node_id"`
+	AvatarURL         string `json:"avatar_url"`
+	GravatarID        string `json:"gravatar_id"`
+	URL               string `json:"url"`
+	HTML_URL          string `json:"html_url"`
+	FollowersURL      string `json:"followers_url"`
+	FollowingURL      string `json:"following_url"`
+	GistsURL          string `json:"gists_url"`
+	StarredURL        string `json:"starred_url"`
+	SubscriptionsURL  string `json:"subscriptions_url"`
+	OrganizationsURL  string `json:"organizations_url"`
+	ReposURL          string `json:"repos_url"`
+	EventsURL         string `json:"events_url"`
+	ReceivedEventsURL string `json:"received_events_url"`
+	Type              string `json:"type"`
+	SiteAdmin         bool   `json:"site_admin"`
+	Name              string `json:"name"`
+	Company           string `json:"company"`
+	Blog              string `json:"blog"`
+	Location          string `json:"location"`
+	Email             string `json:"email"`
+	Hireable          bool   `json:"hireable"`
+	Bio               string `json:"bio"`
+	TwitterUserName   string `json:"twitter_username"`
+	PublicRepos       int    `json:"public_repos"`
+	PublicGists       int    `json:"public_gits"`
+	Followers         int    `json:"followers"`
+	Following         int    `json:"following"`
+	CreatedAt         string `json:"created_at"`
+	UpdatedAt         string `json:"updated_at"`
 }
 
 func getGithubOauthURL() (*oauth2.Config, string) {
