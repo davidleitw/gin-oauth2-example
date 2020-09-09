@@ -109,7 +109,7 @@ func GithubCallBack(ctx *gin.Context) {
 
 	query.Add("email", user.Email)
 	query.Add("name", user.Name)
-	query.Add("source", "google")
+	query.Add("source", "github")
 	redirectURL.RawQuery = query.Encode()
 
 	// 跳轉登入成功畫面(顯示登入資訊)

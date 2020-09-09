@@ -91,8 +91,10 @@ func __debug__printJSON(js []byte) {
 	var prettyJSON bytes.Buffer
 	err := json.Indent(&prettyJSON, js, "", "t")
 
+	result := string(prettyJSON.Bytes())
+
 	if err == nil {
-		log.Println(prettyJSON.Bytes())
+		log.Println(result)
 	} else {
 		log.Println("Println Json error = ", err)
 	}
