@@ -2,8 +2,8 @@ package backend
 
 import (
 	"context"
+	"encoding/json"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 
@@ -15,6 +15,14 @@ import (
 )
 
 var github_config *oauth2.Config
+
+type githubUser struct {
+	Login   string `json:"login"`
+	Name    string `json:"name"`
+	Email   string `json:"email"`
+	Company string `json:"company"`
+	URL     string `json:"url"`
+}
 
 func getGithubOauthURL() (*oauth2.Config, string) {
 	options := CreateClientOptions("github", "https://ginoauth-example.herokuapp.com/callback/github")
@@ -78,7 +86,14 @@ func GithubCallBack(ctx *gin.Context) {
 		return
 	}
 
-	log.Println("info = ", info)
+	var user githubUser
+	__debug__printJSON(info)
+	err = json.Unmarshal(info, &user)
+	if err != nil {
+		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
 	// redirect to islogin page, and add email, name into url's query string.
 	redirectURL, err := url.Parse(IsLoginURL)
 	if err != nil {
@@ -92,8 +107,8 @@ func GithubCallBack(ctx *gin.Context) {
 		return
 	}
 
-	// query.Add("email", user.Email)
-	// query.Add("name", user.Name)
+	query.Add("email", user.Email)
+	query.Add("name", user.Name)
 	query.Add("source", "google")
 	redirectURL.RawQuery = query.Encode()
 
