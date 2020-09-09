@@ -1,6 +1,9 @@
 package backend
 
 import (
+	"context"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 
@@ -14,14 +17,17 @@ import (
 var github_config *oauth2.Config
 
 func getGithubOauthURL() (*oauth2.Config, string) {
-	options := CreateClientOptions("github", "https://ginoauth-example.herokuapp.com/callback/google")
+	options := CreateClientOptions("github", "https://ginoauth-example.herokuapp.com/callback/github")
 
 	github_config = &oauth2.Config{
 		ClientID:     options.getID(),
 		ClientSecret: options.getSecret(),
 		RedirectURL:  options.getRedirectURL(),
-		Scopes:       []string{},
-		Endpoint:     github.Endpoint,
+		Scopes: []string{
+			"user",
+			"repo",
+		},
+		Endpoint: github.Endpoint,
 	}
 
 	state := GenerateState()
@@ -58,6 +64,21 @@ func GithubCallBack(ctx *gin.Context) {
 		return
 	}
 
+	client := github_config.Client(context.TODO(), token)
+	userInfo, err := client.Get("https://api.github.com/user")
+	if err != nil {
+		_ = ctx.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
+	defer userInfo.Body.Close()
+
+	info, err := ioutil.ReadAll(userInfo.Body)
+	if err != nil {
+		_ = ctx.AbortWithError(http.StatusInternalServerError, err)
+		return
+	}
+
+	log.Println("info = ", info)
 	// redirect to islogin page, and add email, name into url's query string.
 	redirectURL, err := url.Parse(IsLoginURL)
 	if err != nil {
