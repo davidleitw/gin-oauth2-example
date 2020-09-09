@@ -1,7 +1,10 @@
 package backend
 
 import (
+	"bytes"
+	"encoding/json"
 	"errors"
+	"log"
 	"os"
 
 	"github.com/rs/xid"
@@ -82,4 +85,15 @@ func (c *ClientOption) getRedirectURL() string {
 
 func GenerateState() string {
 	return xid.New().String()
+}
+
+func __debug__printJSON(js []byte) {
+	var prettyJSON bytes.Buffer
+	err := json.Indent(&prettyJSON, js, "", "t")
+
+	if err == nil {
+		log.Println(prettyJSON.Bytes())
+	} else {
+		log.Println("Println Json error = ", err)
+	}
 }
