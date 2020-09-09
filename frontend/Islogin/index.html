@@ -49,18 +49,23 @@
         <div id="email" class="user-info">
             <h3>xxxx@xxxx.com</h3>
         </div>
+        <div id="source"" class="user-info">
+            <h3>從xxxx登入</h3>
+        </div>
     </div>
 
     <script>
 
         (function () {
-            //測試用 let url=new URL("https://ginoauth-example.herokuapp.com/Islogin?email=fizzyelt8786%40gmail.com&name=%E7%B4%A2%E6%9F%8F%E9%8A%93#")
+            //let url=new URL("https://ginoauth-example.herokuapp.com/Islogin?email=fizzyelt8786%40gmail.com&name=%E7%B4%A2%E6%9F%8F%E9%8A%93&source=google#")
             let urlParams = new URLSearchParams(window.location.search)
             if (urlParams.get('name')) {
                 let name = document.querySelector('#name h3')
                 let email = document.querySelector('#email h3')
+                let source=document.querySelector('#source h3')
                 name.textContent = urlParams.get('name')
                 email.textContent = urlParams.get('email')
+                source.textContent=`從 ${urlParams.get('source')} 登入`
             }
         })();
 

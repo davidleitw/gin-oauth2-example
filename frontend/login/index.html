@@ -21,7 +21,6 @@
             background-color: #006e8a;
             margin: auto;
             width: 200px;
-            height: 250px;
             border-radius: 8px;
             padding: 10px;
             display: flex;
@@ -39,40 +38,46 @@
             flex-direction: column;
         }
 
-        button {
+        a {
             position: relative;
             width: 170px;
             height: 60px;
             border-radius: 8px;
             display: flex;
             justify-content: space-between;
+            background-color: #fff;
             align-items: center;
             border: none;
             cursor: pointer;
             margin-top: 20px;
-            padding: 5px;
+            padding: 0px 5px;
             outline: none;
             font-size: 20px;
+            text-decoration: none;
+            color: black;
+        }
+        a span{
+            width: 100px;
+            text-align: center;
         }
 
-        button::before {
+        a::before {
             position: absolute;
             display: block;
             content: '';
-            top: -5px;
-            left: -5px;
-            width: 170px;
+            width: 180px;
             height: 60px;
+            left: -5px;
             border-radius: 8px;
             border: 4px solid rgba(255, 255, 255, 0);
         }
 
-        button:hover::before {
+        a:hover::before {
             animation: wave 0.6s ease-in-out infinite;
         }
 
 
-        button img {
+        a img {
             display: block;
             width: 48px;
             height: 48px;
@@ -96,25 +101,21 @@
     <div class="box">
         <h1>第三方登入</h1>
         <div class="login-list">
-            <button id="google_login">
+            <a id="google_login" href="/oauth/google">
                 <img src="/img/google.svg" alt="">
                 <span>Google Login</span>
-            </button>
-            <button id="facebook_login">
+            </a>
+            <a id="facebook_login" href="/oauth/facebook">
                 <img src="/img/facebook.svg" alt="">
                 <span>Facebook Login</span>
-            </button>
+            </a>
+            <a id="github_login" href="/oauth/github">
+                <img src="/img/github.svg" alt="">
+                <span>Facebook Login</span>
+            </a>
         </div>
     </div>
     <script>
-        let googleLogin = document.querySelector('#google_login')
-        let facebookLogin = document.querySelector('#facebook_login')
-        googleLogin.addEventListener('click', function () {
-            window.open("/oauth/google")
-        });
-        facebookLogin.addEventListener('click', function () {
-            window.open("/oauth/facebook")
-        });
 
     </script>
 </body>
