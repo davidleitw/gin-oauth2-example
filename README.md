@@ -85,14 +85,21 @@
 
         今天用戶想要以google帳號登入我們的第三方應用(A)， 所以點了google登入的按鍵。
 
-        按下去之後會跳轉到以下網址
+        按下去之後會跳轉到以下網址(範例，僅列出常見的參數)
         > https://accounts.google.com/o/oauth2/auth/identifier?
         > client_id=xxx&
         > response_type=code&
         > rediruct_url=https://ginoauth-example.herokuapp.com/callback/google&
-        > scope=https://www.googleapis.com/auth/userinfo.profile
-
+        > scope=https://www.googleapis.com/auth/userinfo.profile  
         
+        參數說明
+        - cliend_id: 填入第三方程式申請oauth服務時獲得的ID，主要目的是讓google知道是誰在申請。
+        - response_type: 參數代表目前申請token採用的是哪一種方式， 這邊填入"code"，代表要申請授權碼。
+
+        - redirect_url: 參數代表如果google接受請求之後會跳轉的界面。
+        - scope: 參數是代表這次第三方應用申請oauth之後供存取的權限(授權範圍)。
+
+
         
         
 
