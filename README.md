@@ -99,12 +99,19 @@
 
         - redirect_url: 參數代表如果google接受請求之後會跳轉的界面。
         - scope: 參數是代表這次第三方應用申請oauth之後供存取的權限(授權範圍)。
-        - state: 
+        - state: 防止CSRF攻擊
 
         跳轉之後經由user輸入帳號密碼，告知google授權資源的存取權給A。(授權的範圍就是scope中所指定的資源)
 
         google確認user同意之後會將網頁跳轉到上方redirect_url參數中所指定的url。
         > https://ginoauth-example.herokuapp.com/callback/google?state=xxxx&code=@#!@%!%!
+        
+        跳轉的同時會將state跟authorization code加入跳轉url的query string之中。
+        
+        其中state參數必須跟第一步驟跳轉到google時填入的state參數相同，避免CSRF攻擊。
+        > 詳情請參考[OAuth 2.0 筆記 (7) 安全性問題](https://blog.yorkxin.org/2013/09/30/oauth2-7-security-considerations.html)
+
+
         
 
 
