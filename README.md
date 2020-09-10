@@ -70,7 +70,6 @@
         <br>
 
         通常如果是使用這種驗證方法的話，需要先去跟資源擁有者申請**ClientID**跟**ClientSecret**  
-        
         藉由ClientID資源擁有者(ex: google)才知道今天是哪個第三方應用在請求資源。
         <br>
         
