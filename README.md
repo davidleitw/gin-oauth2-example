@@ -111,8 +111,17 @@
         > 詳情請參考[OAuth 2.0 筆記 (7) 安全性問題](https://blog.yorkxin.org/2013/09/30/oauth2-7-security-considerations.html)
 
         跳轉到callback之後就是需要programmer來進行後續的操作。<br>
-        首先需要比對state是否相同， 通常state都會存在session內，以便比對。
+        首先需要比對state是否相同， 通常state都會存在session內，以便比對。  
+        <br>
 
+        再來談談code參數，**code本身並不能直接獲得資料的存取權，而是後面還要藉由授權碼去獲得Access Token**。  
+        
+        > https://oauth2.googleapis.com/token?client=xxx
+        > &client_secret=xxxx  
+        > &authorization_code=xxxxx  
+        > &grant_type=code
+        
+      
 
         
 
