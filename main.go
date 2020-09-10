@@ -12,6 +12,9 @@ func main() {
 	store := cookie.NewStore([]byte("secret"))
 	server.Use(sessions.Sessions("mysession", store))
 
+	server.GET("/", func(ctx *gin.Context) {
+		ctx.String(200, "Hello world")
+	})
 	server.Static("/img", "./frontend/img")
 	server.Static("login", "./frontend/login")
 	server.Static("islogin", "./frontend/Islogin")
