@@ -73,7 +73,7 @@
         <br>
 
         通常如果是使用這種驗證方法的話，需要先去跟資源擁有者申請**ClientID**跟**ClientSecret**。  
-        藉由ClientID資源擁有者(ex: google)才知道今天是哪個第三方應用在請求資源。
+        藉由ClientID，資源擁有者(ex: google)才知道今天是哪個第三方應用在請求資源。
         <br>
         
         大致流程如下圖所示 [來源](https://itnext.io/an-oauth-2-0-introduction-for-beginners-6e386b19f7a9)
@@ -89,8 +89,9 @@
         > https://accounts.google.com/o/oauth2/auth/identifier?
         > client_id=xxx&
         > response_type=code&
-        > rediruct_url=https://ginoauth-example.herokuapp.com/callback/google&
-        > scope=https://www.googleapis.com/auth/userinfo.profile  
+        > redirect_url=https://ginoauth-example.herokuapp.com/callback/google&
+        > scope=https://www.googleapis.com/auth/userinfo.profile 
+        > state=xxxx 
         
         參數說明
         - cliend_id: 填入第三方程式申請oauth服務時獲得的ID，主要目的是讓google知道是誰在申請。
@@ -98,6 +99,13 @@
 
         - redirect_url: 參數代表如果google接受請求之後會跳轉的界面。
         - scope: 參數是代表這次第三方應用申請oauth之後供存取的權限(授權範圍)。
+        - state: 
+
+        跳轉之後經由user輸入帳號密碼，告知google授權資源的存取權給A。(授權的範圍就是scope中所指定的資源)
+
+        google確認user同意之後會將網頁跳轉到上方redirect_url參數中所指定的url。
+        > https://ginoauth-example.herokuapp.com/callback/google?state=xxxx&code=@#!@%!%!
+        
 
 
         
