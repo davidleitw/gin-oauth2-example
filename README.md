@@ -66,20 +66,32 @@
     </br>
     
     - ### Authorization-Code(授權碼):
-        此方法是目前最為常見的一種手法，在主流的前後端分離架構上，通常採取這種方法，使得可以在**後端獲得Token**，所有有關於資源存取的運算都放在後端， 可以減少token暴露的機會。
-        <br>
-
-        通常如果是使用這種驗證方法的話，需要先去跟資源擁有者申請**ClientID**跟**ClientSecret**  
-        藉由ClientID資源擁有者(ex: google)才知道今天是哪個第三方應用在請求資源。
-        <br>
-        
         **此範例就是使用Authorization Code的方法去實行的。**
         <br>
 
-        以下範例皆以此專案Demo的網址作為範例， 可以與[Demo](https://ginoauth-example.herokuapp.com/login)一起服用。  
+        此方法是目前最為常見的一種手法，在主流的前後端分離架構上，通常採取這種方法，使得可以在**後端獲得Token**，所有有關於資源存取的運算都放在後端， 可以減少token暴露的機會。
+        <br>
 
+        通常如果是使用這種驗證方法的話，需要先去跟資源擁有者申請**ClientID**跟**ClientSecret**。  
+        藉由ClientID資源擁有者(ex: google)才知道今天是哪個第三方應用在請求資源。
+        <br>
+        
+        大致流程如下圖所示 [來源](https://itnext.io/an-oauth-2-0-introduction-for-beginners-6e386b19f7a9)
+        ![](https://miro.medium.com/max/3553/1*anmFPvD_EVMiZOo-W76qyA.png)
+        <br>
+
+        以下解說皆以此專案Demo的網址作為範例， 可以與[Demo](https://ginoauth-example.herokuapp.com/login)一起服用。  
         一開始我們點進去的網址是**https://ginoauth-example.herokuapp.com/login**
-        今天這個第三方應用想要取得user的gmail以及username 
+
+        今天用戶想要以google帳號登入我們的第三方應用(A)， 所以點了google登入的按鍵。
+
+        按下去之後會跳轉到以下網址
+        > https://accounts.google.com/o/oauth2/auth/identifier?
+        > client_id=xxx&
+        > response_type=code&
+        > rediruct_url=https://ginoauth-example.herokuapp.com/callback/google&
+        > scope=https://www.googleapis.com/auth/userinfo.profile
+
         
         
         
