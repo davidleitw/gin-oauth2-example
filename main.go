@@ -12,9 +12,11 @@ func main() {
 	store := cookie.NewStore([]byte("secret"))
 	server.Use(sessions.Sessions("mysession", store))
 
+	// 如果要使用FB的api服務， /route必須要有內容
 	server.GET("/", func(ctx *gin.Context) {
 		ctx.String(200, "Hello world")
 	})
+
 	server.Static("/img", "./frontend/img")
 	server.Static("login", "./frontend/login")
 	server.Static("islogin", "./frontend/Islogin")
