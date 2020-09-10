@@ -107,7 +107,6 @@
         > https://ginoauth-example.herokuapp.com/callback/google?state=xxxx&code=@#!@%!%!
         
         跳轉的同時會將state跟authorization code加入跳轉url的query string之中。
-        
         其中state參數必須跟第一步驟跳轉到google時填入的state參數相同，避免CSRF攻擊。
         > 詳情請參考[OAuth 2.0 筆記 (7) 安全性問題](https://blog.yorkxin.org/2013/09/30/oauth2-7-security-considerations.html)
 
