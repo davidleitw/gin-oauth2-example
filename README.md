@@ -45,8 +45,8 @@
     值得注意的是在RFC 6749的文件內清楚的說明了Oauth2.0的角色
     > **Oauth在傳統的架構上引入了一層授權層，用以分隔客戶端以及資源擁有者，當資源的擁有者授權客戶端(第三方應用程式)應用可以存取資源的時候，用來存放資源的伺服器會頒發一個Access Token給客戶端(第三方應用程式)， 客戶端拿到Token之後就可以藉由此Token對資源做有限度的存取(並沒有拿到全部的權限)。**
 
-    > 原文段落:
-    <br> 
+    > 原文段落:  
+    > 
     > The OAuth 2.0 authorization framework enables a third-party   application to obtain limited access to an HTTP service, either on   behalf of a resource owner by orchestrating an approval interaction   between the resource owner and the HTTP service, or by allowing the   third-party application to obtain access on its own behalf.  This   specification replaces and obsoletes the OAuth 1.0 protocol described   in RFC 5849.
     
     </br>
