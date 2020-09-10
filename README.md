@@ -94,12 +94,11 @@
         > state=xxxx 
         
         參數說明
-        - cliend_id: 填入第三方程式申請oauth服務時獲得的ID，主要目的是讓google知道是誰在申請。
-        - response_type: 參數代表目前申請token採用的是哪一種方式， 這邊填入"code"，代表要申請授權碼。
-
-        - redirect_url: 參數代表如果google接受請求之後會跳轉的界面。
-        - scope: 參數是代表這次第三方應用申請oauth之後供存取的權限(授權範圍)。
-        - state: 防止CSRF攻擊
+        > - cliend_id: 填入第三方程式申請oauth服務時獲得的ID，主要目的是讓google知道是誰在申請。
+        > - response_type: 參數代表目前申請token採用的是哪一種方式， 這邊填入"code"，代表要申請授權碼。
+        > - redirect_url: 參數代表如果google接受請求之後會跳轉的界面。
+        > - scope: 參數是代表這次第三方應用申請oauth之後供存取的權限(授權範圍)。
+        > - state: 防止CSRF攻擊
 
         跳轉後由user輸入帳號密碼，告知google授權資源存取權給A。(授權的範圍就是scope中所指定的資源)
 
