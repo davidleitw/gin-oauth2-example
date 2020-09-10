@@ -40,7 +40,7 @@
     > **(2) 如果今天不想要繼續授權給應用程式了，資源擁有者可以隨時撤銷token的有效性。**
     > **(3) token最大的好處是有權限的管理，可以只開放部份的資源存取權給第三方的應用程式。**
 
-  - ## Oauth2.0標準文件 [RFC6749](https://tools.ietf.org/html/rfc6749)
+  - ## Oauth2.0規格書 [RFC6749](https://tools.ietf.org/html/rfc6749)
     這份規格書內清楚的寫了Oauth2.0的設計準則， 如果想要清楚的知道oauth2.0底層是如何運作的可以參考看看。
     值得注意的是在RFC 6749的文件內清楚的說明了Oauth2.0的角色
     > **Oauth在傳統的架構上引入了一層授權層，用以分隔客戶端以及資源擁有者，當資源的擁有者授權客戶端(第三方應用程式)應用可以存取資源的時候，用來存放資源的伺服器會頒發一個Access Token給客戶端(第三方應用程式)， 客戶端拿到Token之後就可以藉由此Token對資源做有限度的存取(並沒有拿到全部的權限)。**
@@ -52,6 +52,9 @@
     </br>
 
     由上面那段重點可以得知Oauth扮演的核心角色就是向第三方應用程式頒發Token，作為第三方應用跟資源網站的橋樑。
+    <br>
+
+    >  **補充: [RFC6750](https://tools.ietf.org/html/rfc6750)  該文件敘述一些有關於Token實作上的細節**
 
   - ## Authorization Grant(四種獲得Token的方式)
     > #### 1. **authorization-code (授權碼)**
@@ -64,6 +67,22 @@
     
     - ### Authorization-Code(授權碼):
         此方法是目前最為常見的一種手法，在主流的前後端分離架構上，通常採取這種方法，使得可以在**後端獲得Token**，所有有關於資源存取的運算都放在後端， 可以減少token暴露的機會。
+        <br>
+
+        通常如果是使用這種驗證方法的話，需要先去跟資源擁有者申請**ClientID**跟**ClientSecret**
+        藉由ClientID資源擁有者(ex: google)才知道今天是哪個第三方應用在請求資源。
+        <br>
+        
+        **此範例就是使用Authorization Code的方法去實行的。**
+        <br>
+
+        以下範例皆以此專案Demo的網址作為範例， 可以與[Demo](https://ginoauth-example.herokuapp.com/login)一起服用。  
+
+        一開始我們點進去的網址是**https://ginoauth-example.herokuapp.com/login**
+        今天這個第三方應用想要取得user的gmail以及username 
+        
+        
+        
 
 
 
