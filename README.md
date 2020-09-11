@@ -145,6 +145,18 @@
 
     - ### Implicit(隱藏式):
       
+      這個方法現在已經比較少用了，應用場景主要是在沒有後端的純前端應用上。
+
+      直接將Access Token儲存在前端， 並且因為隱藏了授權碼的使用， 所以被稱為隱藏式。
+
+      由於此方法非常的不安全， 會將Access Token暴露在前端， 所以通常只能用在安全需求低的場景， 而且對於Token的有效時間要設置的非常短， 避免有心人士利用。
+
+      通過這個方式得到授權之後，google會根據申請時候的redirect參數去跳轉。 範例如下
+      > https://test.com/callback#token=Access_Token
+
+      值得注意的是回傳的Access_Token並不是放在Query_String中，而是放在了Fragment內， 這樣的好處是參數並不會傳回伺服器，而是僅供瀏覽器使用， 可以防止中間人攻擊的發生。
+
+      更多有關URL參數以及Fragment的細節可以參考: [URL](https://terrylee7788.wordpress.com/2015/07/11/url-%E7%9A%84%E5%90%84%E5%80%8B%E9%83%A8%E5%88%86/) [Wiki](https://en.wikipedia.org/wiki/URI_fragment)
 
         
 
