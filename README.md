@@ -158,7 +158,11 @@
 
       更多有關URL參數以及Fragment的細節可以參考: [URL](https://terrylee7788.wordpress.com/2015/07/11/url-%E7%9A%84%E5%90%84%E5%80%8B%E9%83%A8%E5%88%86/) [Wiki](https://en.wikipedia.org/wiki/URI_fragment)
 
-        
+    - ### Password(密碼式)
+
+      這種情境個人認為又更少使用了， 此認證方式只會出現在當使用者今天高度的信任某個第三方應用程式， RFC 6749也允許在此情況下直接將用戶google的帳號密碼告訴第三方的應用程式。
+
+      使用這種方式的時候Access_Token會直接以json的方式回傳給第三方的應用，此種方式通常較不推薦， 畢竟在網路的世界，還是要以安全為最高準則。
 
 
         
