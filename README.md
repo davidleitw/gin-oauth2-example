@@ -90,7 +90,7 @@
         > client_id=xxx&
         > response_type=code&
         > redirect_url=https://ginoauth-example.herokuapp.com/callback/google&
-        > scope=https://www.googleapis.com/auth/userinfo.profile 
+        > scope=https://www.googleapis.com/auth/userinfo.profile&
         > state=xxxx 
         
         參數說明
@@ -139,6 +139,11 @@
           "info": "xxxx",
         }
         ```
+
+        最後就可以藉由上述流程中獲得的access_token來申請資源啦。  
+        要注意的是**client_secret, access_token等資訊一定要放在後端並且小心存放避免暴露**。
+
+    - ### Implicit(隱藏式):
       
 
         
