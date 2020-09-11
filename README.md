@@ -172,8 +172,8 @@
       我寫的應用程式存取到youtube的資源之後再給全部的使用者使用， 有點類似底下的使用者都可以共享我的應用程式所存取的資源。
 
 - ## 第三方登入流程簡述
-
-  今天假設我們的第三方登入網站為A， 開放用戶藉由google帳號去做登入，流程大概如下:
+ 
+  - 今天假設我們的第三方登入網站為A， 開放用戶藉由google帳號去做登入，流程大概如下:
 
   > A跳轉至google登入界面。<br>
   > ↓<br>
@@ -186,3 +186,11 @@
   > google將Access Token以及一些相關資訊放入json回傳。<br>
   > ↓<br>
   > A網站藉由Access Token向google請求相關的用戶資源。
+  
+- ## Reference
+  - [GitHub OAuth 第三方登入範例](http://www.ruanyifeng.com/blog/2019/04/github-oauth.html)
+  - [Google Sign-in with OAuth 2.0](https://yushuanhsieh.github.io/post/2018-08-25-go-google-oauth/#comments)
+  - [OAuth 2.0筆記系列](https://blog.yorkxin.org/2013/09/30/oauth2-4-1-auth-code-grant-flow.html)
+  - [google oauth2](https://developers.google.com/identity/protocols/oauth2/web-server#httprest_7)
+  
+  
