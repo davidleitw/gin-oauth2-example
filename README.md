@@ -176,13 +176,23 @@
   今天假設我們的第三方登入網站為A， 開放用戶藉由google帳號去做登入，流程大概如下:
 
   A跳轉至google登入界面。<br>
-
+  
+  ↓
+  
   google要求用戶登入google帳號，並且詢問是否願意開放權限給A做使用。<br>
-
+  
+  ↓
+  
   用戶同意開放權限，google再跳轉回A網站，並且在query string附上code。<br>
-
+  
+  ↓
+  
   A網站在後端使用code向google申請Access Token。<br>
-
+  
+  ↓
+  
   google將Access Token以及一些相關資訊放入json回傳。<br>
-
+  
+  ↓
+  
   A網站藉由Access Token向google請求相關的用戶資源。
