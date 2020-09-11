@@ -112,6 +112,7 @@
         > 詳情請參考[OAuth 2.0 筆記 (7) 安全性問題](https://blog.yorkxin.org/2013/09/30/oauth2-7-security-considerations.html)
         <br>
 
+        #### 藉由authorization code取得access code
         再來談談code參數，後端跳轉到callback並且接受code之後，需要再以code參數去跟google拿Token。  
         再藉由Token去跟google獲得真正想要的資源。
 
@@ -125,7 +126,19 @@
         > - client_id, client_secret: 讓google得知此次請求是由哪個第三方應用發送。
         > - authorization_code: 剛剛上方取得的授權碼。
         > - grant_type: 告知此次請求是採用Authorization-Code的方式進行。
-
+        
+        回傳json形式範例(根據要求資源的公司不同，回傳的json格式會有些許落差。)
+        ```json
+        {
+          "access_token": "xxxx", 
+          "token_type": "xxx",
+          "expires_in": "放token過期時間",
+          "refresh_token": "當access token過期時，可以再次申請一組Access Token",
+          "scope": "權限",
+          "uid": "xxxx",
+          "info": "xxxx",
+        }
+        ```
       
 
         
