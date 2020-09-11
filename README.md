@@ -116,7 +116,7 @@
         再來談談code參數，後端跳轉到callback並且接受code之後，需要再以code參數去跟google拿Token。  
         再藉由Token去跟google獲得真正想要的資源。
 
-        > 向google申請Access Token的url
+        > 向google申請Access Token的url<br>
         > https://oauth2.googleapis.com/token?client_id=xxx
         > &client_secret=xxxx  
         > &authorization_code=xxxxx  
