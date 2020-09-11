@@ -107,21 +107,25 @@
 
         跳轉到callback，同時會將state跟authorization code加入跳轉url的query string之中。  
         其中state參數必須跟第一步驟跳轉到google時填入的state參數相同，避免CSRF攻擊。  
-        
         通常state會存在session內，以便於比對。
         
         > 詳情請參考[OAuth 2.0 筆記 (7) 安全性問題](https://blog.yorkxin.org/2013/09/30/oauth2-7-security-considerations.html)
         <br>
 
-      
+        再來談談code參數，後端跳轉到callback並且接受code之後，需要再以code參數去跟google拿Token。  
+        再藉由Token去跟google獲得真正想要的資源。
 
-        再來談談code參數，**code本身並不能直接獲得資料的存取權，而是後面還要藉由授權碼去獲得Access Token**。  
-        
-        > https://oauth2.googleapis.com/token?client=xxx
+        > 向google申請Access Token的url
+        > https://oauth2.googleapis.com/token?client_id=xxx
         > &client_secret=xxxx  
         > &authorization_code=xxxxx  
         > &grant_type=code
-        
+
+        參數說明
+        > - client_id, client_secret: 讓google得知此次請求是由哪個第三方應用發送。
+        > - authorization_code: 剛剛上方取得的授權碼。
+        > - grant_type: 告知此次請求是採用Authorization-Code的方式進行。
+
       
 
         
