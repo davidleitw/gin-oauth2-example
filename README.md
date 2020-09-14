@@ -6,7 +6,7 @@
 
 **[Demo](https://ginoauth-example.herokuapp.com/login) 網址，僅要求最低權限，提供email以及username。**
 
-以下會依照個人理解以及網路上心得文章的整理， 做一些簡單的觀念介紹。
+以下會依照個人理解以及網路上心得文章的整理，做一些簡單的觀念介紹。
 
 - # Oauth
 
